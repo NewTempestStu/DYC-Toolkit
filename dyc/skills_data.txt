@@ -28,3 +28,4 @@ Social Perceptiveness;Being aware of others' reactions and understanding why the
 Service Orientation;Actively looking for ways to help people.
 Science;Using scientific rules and methods to solve problems.
 Repairing;Repairing machines or systems using the needed tools.
+123;123

@@ -4,6 +4,8 @@
 
 #define MAX_SKILL_COUNT 100
 #define DATA_FILE_NAME "skills_data.txt"
+#define CHOICES_FILE_NAME "choices_data.txt"
+
 
 char **skills;
 char **descriptions;
@@ -153,36 +155,110 @@ void displaySortedSkills() {
     }
 }
 
+void saveChoices() {
+    FILE *file = fopen(CHOICES_FILE_NAME, "w");
+    if (!file) {
+        printf("Failed to open file for writing choices.\n");
+        return;
+    }
+    for (int i = 0; i < actualSkillCount; i++) {
+        fprintf(file, "%d\n", categories[i]);
+    }
+    fclose(file);
+}
 
+void loadChoices() {
+    FILE *file = fopen(CHOICES_FILE_NAME, "r");
+    if (!file) {
+        // It's okay if file doesn't exist; it means no choices were saved previously.
+        return;
+    }
+    int choice;
+    int i = 0;
+    while (fscanf(file, "%d", &choice) == 1 && i < actualSkillCount) {
+        categories[i++] = choice;
+    }
+    fclose(file);
+}
+
+void viewChoices() {
+    printf("\nYour Choices:\n");
+    for (int i = 0; i < actualSkillCount; i++) {
+        printf("%d. %s - ", i + 1, skills[i]);
+        switch (categories[i]) {
+            case 1: printf("Energizes Me\n"); break;
+            case 2: printf("Depletes Me\n"); break;
+            case 3: printf("Has Little to No Effect\n"); break;
+            default: printf("Not chosen yet\n");
+        }
+    }
+}
+
+void deleteSkill(int skillIndex) {
+    if (skillIndex < 0 || skillIndex >= actualSkillCount) {
+        printf("Invalid skill index.\n");
+        return;
+    }
+    
+    free(skills[skillIndex]);
+    free(descriptions[skillIndex]);
+    
+    for (int i = skillIndex; i < actualSkillCount - 1; i++) {
+        skills[i] = skills[i + 1];
+        descriptions[i] = descriptions[i + 1];
+        categories[i] = categories[i + 1];
+    }
+    
+    // Allocate new memory for the last skill (now empty) if not the last element
+    if (skillIndex != actualSkillCount - 1) {
+        skills[actualSkillCount - 1] = malloc(50 * sizeof(char));
+        descriptions[actualSkillCount - 1] = malloc(256 * sizeof(char));
+    }
+
+    actualSkillCount--;
+    printf("Skill deleted successfully.\n");
+}
 
 
 int main(void) {
     initializeArrays();
-    importData(); // Load data at program start
+    importData();
 
     int choice;
     do {
         printf("\nMain Menu\n");
         printf("1. Start Choosing\n");
-        printf("2. Display Sorted Skills\n");
-        printf("3. Export Data\n");
-        printf("4. Import Data\n");
-        printf("5. Add Skill\n");
-        printf("6. Exit Program\n");
+        printf("2. View Choices\n");
+        printf("3. Display Sorted Skills\n");
+        printf("4. Export Data\n");
+        printf("5. Import Data\n");
+        printf("6. Add Skill\n");
+        printf("7. Delete Skill\n"); // New option to delete a skill
+        printf("8. Exit Program\n");
         printf("Select an option: ");
         scanf("%d", &choice);
         flushInputBuffer();
 
         switch (choice) {
             case 1: sortSkills(); break;
-            case 2: displaySortedSkills(); break;
-            case 3: exportData(); break;
-            case 4: importData(); break;
-            case 5: addSkill(); break;
-            case 6: printf("Exiting program...\n"); break;
+            case 2: viewChoices(); break; // New case to handle viewing choices
+            case 3: displaySortedSkills(); break;
+            case 4: exportData(); break;
+            case 5: importData(); break;
+            case 6: addSkill(); break;
+            case 7: 
+                printf("Enter the number of the skill to delete: ");
+                int indexToDelete;
+                scanf("%d", &indexToDelete);
+                flushInputBuffer();
+                deleteSkill(indexToDelete - 1); // Adjust for 0-based index
+                break;
+            case 8:
+                printf("Exiting program...\n");
+                break;
             default: printf("Invalid choice, please try again.\n");
         }
-    } while (choice != 6);
+    } while (choice != 8);
 
     freeMemory();
     return 0;
