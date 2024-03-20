@@ -1,0 +1,30 @@
+Active Listening;Giving full attention, understanding points being made.
+Complex Problem Solving;Identifying complex problems, developing and evaluating options.
+Coordination;Adjusting actions in relation to others' actions.
+Critical Thinking;Using logic to identify strengths and weaknesses of alternative solutions.
+Databases;Managing large amounts of information with databases.
+Equipment Maintenance;Performing routine maintenance on equipment.
+Equipment Selection;Determining the kind of tools and equipment needed.
+Graphics;Working with pictures in graphics programs.
+Installation;Installing equipment, machines, wiring, or programs.
+Instructing;Teaching others how to do something.
+Management of Financial Resources;Determining how money will be spent to get work done.
+Management of Material Resources;Obtaining and seeing to the appropriate use of equipment.
+Management of Personnel Resources;Motivating, developing, and directing people as they work.
+Monitoring;Assessing performance of yourself, others, to make improvements.
+Operation Monitoring;Watching gauges, dials, or indicators to ensure a machine is working.
+Operation and Control;Controlling operations of equipment or systems.
+Mathematics;Using mathematics to solve problems.
+Writing;Communicating effectively in writing as needed.
+Word Processing;Using a computer application to type, format, and print documents.
+Troubleshooting;Determining causes of operating errors and deciding what to do.
+Time Management;Managing one's own time and the time of others.
+Technology Design;Generating or adapting equipment and technology to serve user needs.
+System Evaluation;Identifying measures or indicators of system performance.
+System Analysis;Determining how a system should work and how changes affect it.
+Spreadsheets;Using applications to enter, manipulate, and format data.
+Speaking;Talking to others to convey information effectively.
+Social Perceptiveness;Being aware of others' reactions and understanding why they react.
+Service Orientation;Actively looking for ways to help people.
+Science;Using scientific rules and methods to solve problems.
+Repairing;Repairing machines or systems using the needed tools.
