@@ -52,11 +52,9 @@ void flushInputBuffer() {
     while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
-// Define other functions like importData, exportData, addSkill, sortSkills, displaySortedSkills
-
 
 void importData() {
-    loadChoices(); // Load choices first, so that they can be displayed if user views choices
+    loadChoices();
     FILE *file = fopen(DATA_FILE_NAME, "r");
     if (file == NULL) {
         printf("Failed to open file for reading.\n");
@@ -76,7 +74,7 @@ void importData() {
             index++;
         }
     }
-    actualSkillCount = index; // Correctly update the count after importing
+    actualSkillCount = index;
     fclose(file);
     printf("Data imported successfully.\n");
 }
@@ -106,7 +104,7 @@ void exportData() {
     }
 
     fclose(file);
-    saveChoices(); // Save choices after saving skills
+    saveChoices();
     printf("Data exported successfully.\n");
 }
 
@@ -118,11 +116,11 @@ void addSkill() {
 
     printf("Enter skill name: ");
     fgets(skills[actualSkillCount], sizeof(skills[actualSkillCount]), stdin);
-    skills[actualSkillCount][strcspn(skills[actualSkillCount], "\n")] = 0; // Remove newline character
+    skills[actualSkillCount][strcspn(skills[actualSkillCount], "\n")] = 0;
 
     printf("Enter skill description: ");
     fgets(descriptions[actualSkillCount], sizeof(descriptions[actualSkillCount]), stdin);
-    descriptions[actualSkillCount][strcspn(descriptions[actualSkillCount], "\n")] = 0; // Remove newline character
+    descriptions[actualSkillCount][strcspn(descriptions[actualSkillCount], "\n")] = 0;
 
     actualSkillCount++;
 
@@ -133,16 +131,16 @@ void sortSkills() {
     printf("Please read each skill and its description, then categorize it:\n");
     printf("1 - Energizes Me, 2 - Depletes Me, 3 - Has Little to No Effect\n\n");
 
-    for(int i = 0; i < actualSkillCount; i++) { // Use actualSkillCount instead of SKILL_COUNT
+    for(int i = 0; i < actualSkillCount; i++) {
         printf("%d. Skill: %s\n", i+1, skills[i]);
         printf("Description: %s\n", descriptions[i]);
         printf("Category (1-3): ");
         scanf("%d", &categories[i]);
-        flushInputBuffer(); // Important to clean up input buffer after scanf
+        flushInputBuffer();
         while(categories[i] < 1 || categories[i] > 3) {
             printf("Invalid category. Please enter 1, 2, or 3: ");
             scanf("%d", &categories[i]);
-            flushInputBuffer(); // Again, clean up input buffer
+            flushInputBuffer();
         }
         printf("\n");
     }
@@ -163,7 +161,7 @@ void displaySortedSkills() {
                 printf("\nHas Little to No Effect:\n");
                 break;
         }
-        for(int i = 0; i < actualSkillCount; i++) { // Again, use actualSkillCount
+        for(int i = 0; i < actualSkillCount; i++) {
             if(categories[i] == cat) {
                 printf("- %s\n", skills[i]);
             }
@@ -249,7 +247,7 @@ int main(void) {
         printf("4. Export Data\n");
         printf("5. Import Data\n");
         printf("6. Add Skill\n");
-        printf("7. Delete Skill\n"); // New option to delete a skill
+        printf("7. Delete Skill\n");
         printf("8. Exit Program\n");
         printf("Select an option: ");
         scanf("%d", &choice);
@@ -257,7 +255,7 @@ int main(void) {
 
         switch (choice) {
             case 1: sortSkills(); break;
-            case 2: viewChoices(); break; // New case to handle viewing choices
+            case 2: viewChoices(); break;
             case 3: displaySortedSkills(); break;
             case 4: exportData(); break;
             case 5: importData(); break;
@@ -268,7 +266,7 @@ int main(void) {
                 int indexToDelete;
                 scanf("%d", &indexToDelete);
                 flushInputBuffer();
-                deleteSkill(indexToDelete - 1); // Adjust for 0-based index
+                deleteSkill(indexToDelete - 1);
                 break;
             case 8:
                 printf("Exiting program...\n");
