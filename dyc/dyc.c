@@ -6,7 +6,6 @@
 #define DATA_FILE_NAME "skills_data.txt"
 #define CHOICES_FILE_NAME "choices_data.txt"
 
-
 char **skills;
 char **descriptions;
 int *categories;
