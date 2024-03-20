@@ -12,6 +12,20 @@ char **descriptions;
 int *categories;
 int actualSkillCount = 0;
 
+void initializeArrays();
+void freeMemory();
+void flushInputBuffer();
+void importData();
+void exportData();
+void addSkill();
+void sortSkills();
+void displaySortedSkills();
+void saveChoices();
+void loadChoices();
+void viewChoices();
+void deleteSkill(int skillIndex);
+
+
 
 void initializeArrays() {
     skills = malloc(MAX_SKILL_COUNT * sizeof(char*));
