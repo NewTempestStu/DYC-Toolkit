@@ -42,6 +42,7 @@ void flushInputBuffer() {
 
 
 void importData() {
+    loadChoices(); // Load choices first, so that they can be displayed if user views choices
     FILE *file = fopen(DATA_FILE_NAME, "r");
     if (file == NULL) {
         printf("Failed to open file for reading.\n");
@@ -91,6 +92,7 @@ void exportData() {
     }
 
     fclose(file);
+    saveChoices(); // Save choices after saving skills
     printf("Data exported successfully.\n");
 }
 
@@ -247,6 +249,7 @@ int main(void) {
             case 5: importData(); break;
             case 6: addSkill(); break;
             case 7: 
+
                 printf("Enter the number of the skill to delete: ");
                 int indexToDelete;
                 scanf("%d", &indexToDelete);
