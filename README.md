@@ -2,7 +2,7 @@
 A toolkit for DYC
 
 ## Introduction
-The Skill Categorization Program is designed to help users categorize a list of skills based on personal preferences. It allows for dynamically managing skills, categorizing them, and persisting these categorizations across sessions. This guide provides instructions on how to use the program, outlines its key features, and clarifies important usage considerations.
+The DYC-Toolkit is designed to help users categorize a list of skills based on personal preferences. It allows for dynamically managing skills, categorizing them, and persisting these categorizations across sessions. This guide provides instructions on how to use the program, outlines its key features, and clarifies important usage considerations.
 
 ## Key Features
 
