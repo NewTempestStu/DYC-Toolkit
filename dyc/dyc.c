@@ -48,21 +48,22 @@ void importData() {
 
     char line[512];
     int index = 0;
-    while (fgets(line, sizeof(line), file) != NULL && index < actualSkillCount) {
+    while (fgets(line, sizeof(line), file) != NULL && index < MAX_SKILL_COUNT) {
         char *token = strtok(line, ";");
         if (token) {
-            strncpy(skills[index], token, sizeof(skills[index]) - 1);
+            strncpy(skills[index], token, 49);
             token = strtok(NULL, "\n");
             if (token) {
-                strncpy(descriptions[index], token, sizeof(descriptions[index]) - 1);
+                strncpy(descriptions[index], token, 255);
             }
             index++;
         }
     }
-    actualSkillCount = index;
+    actualSkillCount = index; // Correctly update the count after importing
     fclose(file);
     printf("Data imported successfully.\n");
 }
+
 
 void exportData() {
     printf("Are you sure you want to overwrite the existing data? (y/n): ");
