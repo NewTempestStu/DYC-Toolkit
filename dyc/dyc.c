@@ -10,46 +10,6 @@ char **descriptions;
 int *categories;
 int actualSkillCount = 0;
 
-void initializeArrays();
-void freeMemory();
-void importData();
-void exportData();
-void addSkill();
-void sortSkills();
-void displaySortedSkills();
-void flushInputBuffer();
-
-int main(void) {
-    initializeArrays();
-    importData(); // Load data at program start
-
-    int choice;
-    do {
-        printf("\nMain Menu\n");
-        printf("1. Start Choosing\n");
-        printf("2. Display Sorted Skills\n");
-        printf("3. Export Data\n");
-        printf("4. Import Data\n");
-        printf("5. Add Skill\n");
-        printf("6. Exit Program\n");
-        printf("Select an option: ");
-        scanf("%d", &choice);
-        flushInputBuffer();
-
-        switch (choice) {
-            case 1: sortSkills(); break;
-            case 2: displaySortedSkills(); break;
-            case 3: exportData(); break;
-            case 4: importData(); break;
-            case 5: addSkill(); break;
-            case 6: printf("Exiting program...\n"); break;
-            default: printf("Invalid choice, please try again.\n");
-        }
-    } while (choice != 6);
-
-    freeMemory();
-    return 0;
-}
 
 void initializeArrays() {
     skills = malloc(MAX_SKILL_COUNT * sizeof(char*));
@@ -132,7 +92,7 @@ void exportData() {
 }
 
 void addSkill() {
-    if (actualSkillCount >= actualSkillCount) {
+    if (actualSkillCount >= MAX_SKILL_COUNT) {
         printf("Maximum skill count reached, cannot add more skills.\n");
         return;
     }
@@ -193,67 +153,36 @@ void displaySortedSkills() {
 }
 
 
-void importData() {
-    FILE *file = fopen(DATA_FILE_NAME, "r");
-    if (file == NULL) {
-        printf("Failed to open file for reading.\n");
-        return;
-    }
 
-    char line[512]; // Assuming a line won't be longer than 512 characters
-    int index = 0;
-    while (fgets(line, sizeof(line), file) != NULL && index < actualSkillCount) {
-        char *token = strtok(line, ";");
-        if (token != NULL) {
-            strncpy(skills[index], token, 49);
-            skills[index][49] = '\0'; // Ensure null termination
 
-            token = strtok(NULL, ";");
-            if (token != NULL) {
-                strncpy(descriptions[index], token, 255);
-                descriptions[index][255] = '\0'; // Ensure null termination
-            }
+int main(void) {
+    initializeArrays();
+    importData(); // Load data at program start
 
-            index++;
+    int choice;
+    do {
+        printf("\nMain Menu\n");
+        printf("1. Start Choosing\n");
+        printf("2. Display Sorted Skills\n");
+        printf("3. Export Data\n");
+        printf("4. Import Data\n");
+        printf("5. Add Skill\n");
+        printf("6. Exit Program\n");
+        printf("Select an option: ");
+        scanf("%d", &choice);
+        flushInputBuffer();
+
+        switch (choice) {
+            case 1: sortSkills(); break;
+            case 2: displaySortedSkills(); break;
+            case 3: exportData(); break;
+            case 4: importData(); break;
+            case 5: addSkill(); break;
+            case 6: printf("Exiting program...\n"); break;
+            default: printf("Invalid choice, please try again.\n");
         }
-    }
-    actualSkillCount = index; // Update the actual skill count based on the file
-    fclose(file);
-    printf("Data imported successfully.\n");
-}
+    } while (choice != 6);
 
-void exportData() {
-    FILE *file = fopen(DATA_FILE_NAME, "w");
-    if (file == NULL) {
-        printf("Failed to open file for writing.\n");
-        return;
-    }
-
-    for (int i = 0; i < actualSkillCount; i++) {
-        fprintf(file, "%s;%s\n", skills[i], descriptions[i]);
-    }
-
-    fclose(file);
-    printf("Data exported successfully.\n");
-}
-
-
-
-void addSkill() {
-    if (actualSkillCount >= actualSkillCount) {
-        printf("Maximum skill count reached, cannot add more skills.\n");
-        return;
-    }
-
-    printf("Enter skill name: ");
-    fgets(skills[actualSkillCount], sizeof(skills[actualSkillCount]), stdin);
-    skills[actualSkillCount][strcspn(skills[actualSkillCount], "\n")] = 0; // Remove newline character
-
-    printf("Enter skill description: ");
-    fgets(descriptions[actualSkillCount], sizeof(descriptions[actualSkillCount]), stdin);
-    descriptions[actualSkillCount][strcspn(descriptions[actualSkillCount], "\n")] = 0; // Remove newline character
-
-    actualSkillCount++;
-
-    printf("Skill added successfully.\n");
+    freeMemory();
+    return 0;
 }
